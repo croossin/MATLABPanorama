@@ -12,7 +12,7 @@
 %% 1. Take images
 %
 % Change the following to the folder containing your input images
-imagepath = 'test';   
+imagepath = 'inputImages/';   
 % Assumes images are in order and are the *only*
 % files in this directory.
 % 
