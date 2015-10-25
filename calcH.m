@@ -29,8 +29,8 @@ H = zeros(3, 3);  % Homography matrix to be returned
 
 %RANSAC 100 loop
 for i=1: 100
-   A = zeros(n*3,9);
-   b = zeros(n*3,1);
+   A = zeros(12,9); %was n*3 so if it breaks - change back
+   b = zeros(12,1);
    
    %Grab four random points
    for x=1: 4
@@ -40,11 +40,11 @@ for i=1: 100
         A(3*(x-1)+3,7:9) = [p2(random,:),1];
         b(3*(x-1)+1:3*(x-1)+3) = [p1(random,:),1];
    end
-   x = (A\b);
-   ransacHomography = [x(1:3); x(4:6); x(7:9)];
+   y = (A\b);
+   ransacHomography = [y(1:3); y(4:6); y(7:9)];
    
    %Check ransachomography vs temphomography
-   
+   disp(ransacHomography);
 end
 
 
