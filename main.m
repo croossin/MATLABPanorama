@@ -28,6 +28,8 @@ imagepath = 'inputImages/';
 % are then stored in a cell array H_list.
 
 % Read in the list of filenames of images to be processed
+imagepath = 'inputImages/';
+
 files = dir(imagepath);
 
 % Eliminate . and .. and assume everything else in directory is an input

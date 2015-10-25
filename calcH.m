@@ -25,6 +25,8 @@ H = zeros(3, 3);  % Homography matrix to be returned
 % of p1 and p2. Modify it to compute a homography matrix using the inliers
 % of p1 and p2 as determined by RANSAC.
 
+%tempHomography;
+
 %RANSAC 100 loop
 for i=1: 100
    A = zeros(n*3,9);
@@ -36,12 +38,13 @@ for i=1: 100
         A(3*(x-1)+1,1:3) = [p2(random,:),1];
         A(3*(x-1)+2,4:6) = [p2(random,:),1];
         A(3*(x-1)+3,7:9) = [p2(random,:),1];
-        b(3*(x-1)+1:3*(i-1)+3) = [p1(random,:),1];
+        b(3*(x-1)+1:3*(x-1)+3) = [p1(random,:),1];
    end
    x = (A\b);
-   H = [x(1:3); x(4:6); x(7:9)];
+   ransacHomography = [x(1:3); x(4:6); x(7:9)];
    
-   %Check homography
+   %Check ransachomography vs temphomography
+   
 end
 
 
