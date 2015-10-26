@@ -27,7 +27,7 @@ H = zeros(3, 3);  % Homography matrix to be returned
 
 %Create a 3x3 temporary homgraphy to store the best homography of the 100
 %cycles
-tempHomography = [0 0 0; 0 0 0; 0 0 0];
+bestHomography = [0 0 0; 0 0 0; 0 0 0];
 mostOutliers = 0;
 
 %RANSAC 100 loop
@@ -50,7 +50,7 @@ for i=1: 100
    
    %This homography is better than the previous best
    if(ransacOutlierCount > mostOutliers)   
-      tempHomography = ransacHomography;
+      bestHomography = ransacHomography;
       mostOutliers = ransacOutlierCount;
    end
    
