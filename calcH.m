@@ -25,7 +25,9 @@ H = zeros(3, 3);  % Homography matrix to be returned
 % of p1 and p2. Modify it to compute a homography matrix using the inliers
 % of p1 and p2 as determined by RANSAC.
 
-%tempHomography;
+%Create a 3x3 temporary homgraphy to store the best homography of the 100
+%cycles
+tempHomography = [0 0 0; 0 0 0; 0 0 0];
 
 %RANSAC 100 loop
 for i=1: 100
@@ -43,8 +45,10 @@ for i=1: 100
    y = (A\b);
    ransacHomography = [y(1:3); y(4:6); y(7:9)];
    
+   tempHomography = ransacHomography;
+   
    %Check ransachomography vs temphomography
-   disp(ransacHomography);
+   disp(tempHomography);
 end
 
 
