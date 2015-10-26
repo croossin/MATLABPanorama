@@ -57,6 +57,11 @@ for i=1: 100
    
 end
 
+%Now have best homography with the 4 random points, find which of n are
+%inliers
+arrayOfInlierRowValues = getInlierRowValues(bestHomography, p1, p2, n);
+
+%Use only inlier points
 
 A = zeros(n*3,9);
 b = zeros(n*3,1);
