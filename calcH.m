@@ -43,7 +43,7 @@ for i=1: 100
         A(3*(x-1)+3,7:9) = [p2(random,:),1];
         b(3*(x-1)+1:3*(x-1)+3) = [p1(random,:),1];
    end
-   y = (A\b);
+   y = (A\b)';
    ransacHomography = [y(1:3); y(4:6); y(7:9)];
   
    %computes how many inliers there are in this temphomography

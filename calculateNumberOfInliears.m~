@@ -6,8 +6,18 @@ inlierCount = 0;
 
 %Go through all points determing if they are an inlier or not
 for i=1: n
-   q = [p1(i,:),1]*homography;
+    disp([p1(i,:),1]);
+   q = homography*[p1(i,:),1];
+   disp(q);
+   distance = getEuclideanDistance(p2(i,:), q(:,:));
+   disp(distance);
+   if distance > 3
+      inlierCount++; 
+   end
+   
 end
+
+numberOfInliers = inlierCount
 
 end
 
