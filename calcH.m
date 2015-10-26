@@ -28,6 +28,7 @@ H = zeros(3, 3);  % Homography matrix to be returned
 %Create a 3x3 temporary homgraphy to store the best homography of the 100
 %cycles
 tempHomography = [0 0 0; 0 0 0; 0 0 0];
+mostOutliers = 0;
 
 %RANSAC 100 loop
 for i=1: 100
@@ -44,11 +45,15 @@ for i=1: 100
    end
    y = (A\b);
    ransacHomography = [y(1:3); y(4:6); y(7:9)];
+  
+   ransacOutlierCount = calculateNumberOfInliears(ransacHomography, p1, p2);
    
-   tempHomography = ransacHomography;
+   %This homography is better than the previous best
+   if(ransacOutlierCount > mostOutliers)   
+      tempHomography = ransacHomography;
+      mostOutliers = ransacOutlierCount;
+   end
    
-   %Check ransachomography vs temphomography
-   disp(tempHomography);
 end
 
 
