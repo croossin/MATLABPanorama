@@ -46,7 +46,8 @@ for i=1: 100
    y = (A\b);
    ransacHomography = [y(1:3); y(4:6); y(7:9)];
   
-   ransacOutlierCount = calculateNumberOfInliears(ransacHomography, p1, p2);
+   %computes how many inliers there are in this temphomography
+   ransacOutlierCount = calculateNumberOfInliears(ransacHomography, p1, p2, n);
    
    %This homography is better than the previous best
    if(ransacOutlierCount > mostOutliers)   
