@@ -3,7 +3,7 @@ function [ distance ] = getEuclideanDistance(p1, p2)
 %   Detailed explanation goes here
 
    X = [p1(:,1),p1(1,2);p2(:,1),p2(1,2)];
-    distance = pdist(X, 'euclidean');
+   distance = pdist(X, 'euclidean');
 
 end
 
