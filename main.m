@@ -1,3 +1,5 @@
+ clear all; close all; clc;
+
 %%======================================================================
 %% Script to create a panorama image from a sequence of images in `imagepath' directory.
 %
@@ -187,6 +189,8 @@ panorama_image = zeros(panorama_height, panorama_width, 3);
 for i = 1 : length(warped_images)
     panorama_image = panorama_image + warped_images{i};
 end
+
+figure;imshow(panorama_image);
 
 % Save your final output image as a .jpg file and name it according to
 % the directions in the assignment.  
