@@ -13,7 +13,6 @@ for i=1: n
    if distance < 3
       inlierCount = inlierCount + 1; 
    end
-   
 end
 
 numberOfInliers = inlierCount;

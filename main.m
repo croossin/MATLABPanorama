@@ -85,13 +85,10 @@ end
 % Compute new homographies H_map that map every other image *directly* to
 % the reference image 
 
-%Generating p1 and p2
-for i =1:n
- %  [p2(i,:),1] = H_list{2}*p3(
-end
+H_31 = H_list{1} * H_list{2};
+H_41 = H_list{1} * H_list{2} * H_list{3};
 
-
-H_map = {};
+H_map = {eye(3),H_list{1}, H_31, H_41};
 
 %------------- YOUR CODE ENDS HERE -----------------
 
