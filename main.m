@@ -86,11 +86,16 @@ end
 % 
 % Compute new homographies H_map that map every other image *directly* to
 % the reference image 
+listSize = length(H_list);
+H_map = {eye(3)};
+for count=1:listSize
+    H_map{count+1} = getReferenceHomography(H_list, count);
+end
 
-H_31 = H_list{1} * H_list{2};
-H_41 = H_list{1} * H_list{2} * H_list{3};
+%H_31 = H_list{1} * H_list{2};
+%H_41 = H_list{1} * H_list{2} * H_list{3};
 
-H_map = {eye(3),H_list{1}, H_31, H_41};
+%H_map = {eye(3),H_list{1}, H_31, H_41};
 
 %------------- YOUR CODE ENDS HERE -----------------
 

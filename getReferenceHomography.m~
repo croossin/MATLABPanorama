@@ -1,0 +1,15 @@
+function [returnHomography] = getReferenceHomography(H_list, count)
+%GETREFERENCEHOMOGRAPHY Summary of this function goes here
+%   Detailed explanation goes here
+
+tempHomography = [];
+
+for i = 1: count
+    currentHList = H_list{i};
+    currentHList
+    tempHomography
+    tempHomography = tempHomography * currentHList;
+end
+returnHomography = tempHomography;
+end
+
