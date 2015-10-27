@@ -1,5 +1,5 @@
 function [ numberOfInliers ] = calculateNumberOfInliers(homography, p1, p2, n)
-%CALCULATENUMBEROFINLIEARS Summary of this function goes here
+%# of inliers in homography
 %   Detailed explanation goes here
 
 inlierCount = 0;
