@@ -47,7 +47,7 @@ for i=1: 100
    ransacHomography = [y(1:3); y(4:6); y(7:9)];
   
    %computes how many inliers there are in this temphomography
-   ransacInlierCount = calculateNumberOfInliears(ransacHomography, p1, p2, n);
+   ransacInlierCount = calculateNumberOfInliers(ransacHomography, p1, p2, n);
    
    %This homography is better than the previous best
    if(ransacInlierCount > mostInliers)   
