@@ -1,3 +1,5 @@
+ clear all; close all; clc;
+
 %%======================================================================
 %% Script to create a panorama image from a sequence of images in `imagepath' directory.
 %
@@ -84,13 +86,15 @@ end
 % 
 % Compute new homographies H_map that map every other image *directly* to
 % the reference image 
-H_list(1
+listSize = length(H_list);
+H_map = {eye(3)};
+for count=1:listSize
+    
+end
+H_31 = H_list{1} * H_list{2};
+H_41 = H_list{1} * H_list{2} * H_list{3};
 
-H_31 = H_list(1) .* H_list(2);
-H_41 = H_list(1) .* H_list(2) .* H_list(3);
-
-
-H_map = {eye(3),H_list(1), H_31, H_41};
+H_map = {eye(3),H_list{1}, H_31, H_41};
 
 %------------- YOUR CODE ENDS HERE -----------------
 
@@ -187,8 +191,26 @@ panorama_image = zeros(panorama_height, panorama_width, 3);
 % very bad blending method - implement feathering instead.
 
 for i = 1 : length(warped_images)
+%     [height, width, depth] = size(warped_images{i});
+%     tempImage = zeros(height, width, depth);
+%     %Create border of ones
+%     tempImage(1,:,:) = 1;
+%     tempImage(height,:,:) = 1;
+%     tempImage(:,1,:) = 1;
+%     tempImage(:,width,:) = 1;
+%     tempImage = bwdist(tempImage, 'euclidean');
+%     centerPtValue = tempImage(uint8((height/2)), uint8((width/2)));
+%     weightImage = zeros(height,width,depth);
+%     for x=1:height
+%        for y=1:width
+%            weightImage(x,y,:) = tempImage(uint8(x/centerPtValue),uint8(y/centerPtValue),:);
+%        end
+%     end
+%     weightImage
     panorama_image = panorama_image + warped_images{i};
 end
+
+figure;imshow(panorama_image);
 
 % Save your final output image as a .jpg file and name it according to
 % the directions in the assignment.  
