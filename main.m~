@@ -195,19 +195,17 @@ for i = 1 : length(warped_images)
     tempImage(height,:,:) = 1;
     tempImage(:,1,:) = 1;
     tempImage(:,width,:) = 1;
+    %Make weight
     tempImage = bwdist(tempImage, 'euclidean');
     centerPtValue = tempImage(uint8((height/2)), uint8((width/2)));
     weightImage = zeros(height,width,depth);
+    %Adjust weight (0,1]
     for x=1:height
        for y=1:width
-           if x==uint8(height/2) && y==uint8(width/2)
-               uint8(tempImage(x,y,:)/centerPtValue)
-           end
-           
-           weightImage(x,y,:) = uint8(tempImage(x,y,:)/centerPtValue);
+           weightImage(x,y,:) = tempImage(x,y,:)/centerPtValue;
        end
     end
-    weightImage
+    
     panorama_image = panorama_image + warped_images{i};
 end
 
