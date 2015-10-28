@@ -187,24 +187,13 @@ panorama_image = zeros(panorama_height, panorama_width, 3);
 % following code adds warped images directly to panorama image. This is a
 % very bad blending method - implement feathering instead.
 
-for i = 1 : length(warped_images)
-    [height, width, depth] = size(warped_images{i});
-    tempImage = zeros(height, width, depth);
-    %Create border of ones
-    tempImage(1,:,:) = 1;
-    tempImage(height,:,:) = 1;
-    tempImage(:,1,:) = 1;
-    tempImage(:,width,:) = 1;
-    %Make weight
-    tempImage = bwdist(tempImage, 'euclidean');
-    centerPtValue = tempImage(uint8((height/2)), uint8((width/2)));
-    weightImage = zeros(height,width,depth);
-    %Adjust weight (0,1]
-    for x=1:height
-       for y=1:width
-           weightImage(x,y,:) = tempImage(x,y,:)/centerPtValue;
-       end
-    end
+for i = 1 : length(warped_images)-1
+    alpha1 = createAlpha(warped_images{i});
+    alpha2 = createAlpha(warped_images{i+1});
+    alpha1
+    alpha2
+    image1 = warped_images{i};
+    image2 = warped_images{i+1};
     
     panorama_image = panorama_image + warped_images{i};
 end
