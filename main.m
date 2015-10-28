@@ -192,7 +192,15 @@ for i = 1 : length(warped_images)-1
     alpha2 = createAlpha(warped_images{i+1});
     image1 = warped_images{i};
     image2 = warped_images{i+1};
-    
+    [height, width, depth] = size(image1);
+    output_img = zeros(height, width, depth, 1);
+    for x = 1: height
+       for y = 1: width
+          image1alpha = alpha1(x,y);
+          image1alpha
+          %output_img(x,y)
+       end
+    end
     panorama_image = panorama_image + warped_images{i};
 end
 

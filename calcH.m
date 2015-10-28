@@ -32,8 +32,8 @@ mostInliers = 0;
 
 %RANSAC 100 loop
 for i=1: 100
-   A = zeros(12,9); %was n*3 so if it breaks - change back
-   b = zeros(12,1);
+   A = zeros(n*3,9);
+   b = zeros(n*3,1);
    
    %Grab four random points
    for x=1: 4

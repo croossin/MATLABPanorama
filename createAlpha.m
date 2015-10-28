@@ -22,6 +22,6 @@ function [alphaMatrix] = createAlpha(warpedImage)
            weightImage(x,y,:) = tempImage(x,y,:)/centerPtValue;
        end
     end
-    alphaMatrix = weightImage;
+    alphaMatrix = weightImage; %This is 3-dimensional... is that right?
 end
 
