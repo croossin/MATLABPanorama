@@ -32,16 +32,16 @@ mostInliers = 0;
 
 %RANSAC 100 loop
 for i=1: 100
-   A = zeros(n*3,9);
-   b = zeros(n*3,1);
+   A = zeros(4*3,9);
+   b = zeros(4*3,1);
    
    %Grab four random points
    for x=1: 4
-        random = randi([1 n],1,1);
-        A(3*(x-1)+1,1:3) = [p2(random,:),1];
-        A(3*(x-1)+2,4:6) = [p2(random,:),1];
-        A(3*(x-1)+3,7:9) = [p2(random,:),1];
-        b(3*(x-1)+1:3*(x-1)+3) = [p1(random,:),1];
+        randomNum = randi(n);
+        A(3*(x-1)+1,1:3) = [p2(randomNum,:),1];
+        A(3*(x-1)+2,4:6) = [p2(randomNum,:),1];
+        A(3*(x-1)+3,7:9) = [p2(randomNum,:),1];
+        b(3*(x-1)+1:3*(x-1)+3) = [p1(randomNum,:),1];
    end
    y = (A\b)';
    ransacHomography = [y(1:3); y(4:6); y(7:9)];
