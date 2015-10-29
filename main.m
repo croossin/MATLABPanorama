@@ -160,8 +160,7 @@ for i=1:length(H_map)
     curr_warped_image = zeros(panorama_height, panorama_width, 4);
     for channel = 1 : 4
         if channel == 4
-           alpha = createAlpha(cur_image);
-           curr_warped_image(:,:, channel) = cur_image(:,:,alpha);
+           curr_warped_image(:,:, channel) = createAlpha(curr_warped_image);
         else
         curr_warped_image(:, :, channel) = interp2(cur_image(:,:,channel), ...
             col_coords, row_coords, 'linear', 0);
@@ -193,23 +192,13 @@ panorama_image = zeros(panorama_height, panorama_width, 3);
 % very bad blending method - implement feathering instead.
 
 for i = 1 : length(warped_images)
-%     alpha1 = createAlpha(warped_images{i});
-%     alpha2 = createAlpha(warped_images{i+1});
-%     image1 = warped_images{i};
-%     image2 = warped_images{i+1};
-%     [height, width, depth] = size(image1);
-%     output_img = zeros(height, width, depth, 1);
-%     for x = 1: height
-%        for y = 1: width
-%           image1alpha = alpha1(x,y);
-%           image2alpha = alpha2(x,y);
-%           output_img(x,y)
-%        end
-%     end
-
-    %warped_images{i}(:,:,4) = createAlpha(warped_images{i});
-    %warped_images
-    panorama_image = panorama_image + warped_images{i};
+    warped_images{i}(:,:,1) = warped_images{i}(:,:,1) .* warped_images{i}(:,:,4);
+    warped_images{i}(:,:,2) = warped_images{i}(:,:,2) .* warped_images{i}(:,:,4);
+    warped_images{i}(:,:,3) = warped_images{i}(:,:,3) .* warped_images{i}(:,:,4);
+    
+    
+    
+    panorama_image = panorama_image + warped_images{i}(:,:,1:3);
 end
 
 figure;imshow(panorama_image);
