@@ -157,8 +157,9 @@ for i=1:length(H_map)
     % map to points outside the domain of the input image
     
     % Bilinear interpolate color values
-    curr_warped_image = zeros(panorama_height, panorama_width, 3);
-    for channel = 1 : 3
+    cur_image(:,:,4) = createAlpha(cur_image);
+    curr_warped_image = zeros(panorama_height, panorama_width, 4);
+    for channel = 1 : 4
         curr_warped_image(:, :, channel) = interp2(cur_image(:,:,channel), ...
             col_coords, row_coords, 'linear', 0);
     end
@@ -179,7 +180,7 @@ end
 
 
 % Initialize output image to black (0)
-panorama_image = zeros(panorama_height, panorama_width, 3);
+panorama_image = zeros(panorama_height, panorama_width, 4);
 
 %------------- YOUR CODE STARTS HERE -----------------
 %
@@ -187,27 +188,22 @@ panorama_image = zeros(panorama_height, panorama_width, 3);
 % following code adds warped images directly to panorama image. This is a
 % very bad blending method - implement feathering instead.
 
+numerator = panorama_image(:,:,1:3);
+denom = panorama_image(:,:,4);
 for i = 1 : length(warped_images)
-%     [height, width, depth] = size(warped_images{i});
-%     tempImage = zeros(height, width, depth);
-%     %Create border of ones
-%     tempImage(1,:,:) = 1;
-%     tempImage(height,:,:) = 1;
-%     tempImage(:,1,:) = 1;
-%     tempImage(:,width,:) = 1;
-%     tempImage = bwdist(tempImage, 'euclidean');
-%     centerPtValue = tempImage(uint8((height/2)), uint8((width/2)));
-%     weightImage = zeros(height,width,depth);
-%     for x=1:height
-%        for y=1:width
-%            weightImage(x,y,:) = tempImage(uint8(x/centerPtValue),uint8(y/centerPtValue),:);
-%        end
-%     end
-%     weightImage
-    panorama_image = panorama_image + warped_images{i};
+    
+    numerator(:,:,1) = numerator(:,:,1) + warped_images{i}(:,:,1) .* warped_images{i}(:,:,4);
+    numerator(:,:,2) = numerator(:,:,2) + warped_images{i}(:,:,2) .* warped_images{i}(:,:,4);
+    numerator(:,:,3) = numerator(:,:,3) + warped_images{i}(:,:,3) .* warped_images{i}(:,:,4);
+    
+    denom = denom + warped_images{i}(:,:,4);
 end
 
-figure;imshow(panorama_image);
+panorama_image(:,:,1) = numerator(:,:,1)./denom;
+panorama_image(:,:,2) = numerator(:,:,2)./denom;
+panorama_image(:,:,3) = numerator(:,:,3)./denom;
+
+figure;imshow(panorama_image(:,:,1:3));
 
 % Save your final output image as a .jpg file and name it according to
 % the directions in the assignment.  
