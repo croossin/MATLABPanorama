@@ -14,7 +14,7 @@
 %% 1. Take images
 %
 % Change the following to the folder containing your input images
-imagepath = 'inputImages/';   
+imagepath = 'input_images/';   
 % Assumes images are in order and are the *only*
 % files in this directory.
 % 
@@ -203,7 +203,9 @@ panorama_image(:,:,1) = numerator(:,:,1)./denom;
 panorama_image(:,:,2) = numerator(:,:,2)./denom;
 panorama_image(:,:,3) = numerator(:,:,3)./denom;
 
-figure;imshow(panorama_image(:,:,1:3));
+outputimg = panorama_image(:,:,1:3);
+figure;imshow(outputimg);
+imwrite(outputimg,'roossin','jpg');
 
 % Save your final output image as a .jpg file and name it according to
 % the directions in the assignment.  
